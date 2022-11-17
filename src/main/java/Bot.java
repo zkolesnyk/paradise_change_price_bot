@@ -36,8 +36,8 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(8, "Фольгована гелієва кулька 18д з індивідуальним написом", "18д з індивід", 190, true));
         productList.add(new Product(33, "Фольговане серце/зірка гігант без напису", "Фольга гігант без напису", 550, true));
         productList.add(new Product(17, "Фольговане серце/зірка гігант з написом", "Фольга гігант з написом", 700, true));
-        productList.add(new Product(9, "Коробка-сюрприз з індивідуальним написом", "Коробка з написом", 650, true));
-        productList.add(new Product(30, "Коробка-сюрприз з кольоровою наліпкою", "Коробка з наклейкою", 700, true));
+        productList.add(new Product(9, "Коробка-сюрприз з індивідуальним написом", "Коробка з написом", 650, false));
+        productList.add(new Product(30, "Коробка-сюрприз з кольоровою наліпкою", "Коробка з наклейкою", 700, false));
         productList.add(new Product(20, "Фольгована цифра 96 см", "Цифра 96 см", 400, true));
         productList.add(new Product(21, "Фольгована цифра 70 см", "Цифра 70 см", 310, true));
         productList.add(new Product(34, "Цифра з повітрям на підставці", "Цифра з повітр", 550, true));
