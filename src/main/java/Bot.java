@@ -48,11 +48,12 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(27, "Велика фольгована фігура", "Фігура за 360", 360, true));
         productList.add(new Product(28, "Велика фольгована фігура", "Фігура за 400", 400, true));
         productList.add(new Product(29, "Велика фольгована фігура", "Фігура за 450", 450, true));
-        productList.add(new Product(10, "Вантаж декоративний", "Вантаж", 10, false));
+        productList.add(new Product(10, "Вантаж декоративний", "Груз", 10, false));
         productList.add(new Product(11, "Транспортувальний пакет", "Пакет", 30, false));
         productList.add(new Product(18, "Китиця тассел", "Китиця", 40, false));
         productList.add(new Product(19, "Спіраль тассел", "Спіраль", 80, false));
-        productList.add(new Product(24, "Фольгована кулька сфера", "Сфера", 400, true));
+//        productList.add(new Product(24, "Фольгована кулька сфера", "Сфера", 400, true));
+        productList.add(new Product(35, "Гендерна кулька з кульками та конфетті всередині", "Гендерна", 850, true));
 
     }
     private static int tempProductId;
@@ -100,7 +101,9 @@ public class Bot extends TelegramLongPollingBot {
             } else if (userStatus.get(update.getMessage().getChatId()) == BotStatus.GET_QUANTITY.get()) {
                 tempProductQuantity = Integer.parseInt(message.getText());
 
-                productQuantity.put(tempProductId, productQuantity.getOrDefault(tempProductId, 0) + tempProductQuantity);
+                if (tempProductQuantity != 0) {
+                    productQuantity.put(tempProductId, productQuantity.getOrDefault(tempProductId, 0) + tempProductQuantity);
+                }
 
                 userStatus.put(message.getChatId(), BotStatus.GET_NAME.get());
                 try {
