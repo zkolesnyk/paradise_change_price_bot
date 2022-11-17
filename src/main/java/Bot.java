@@ -29,8 +29,8 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(14, "Прозорий гігант з конфетті та написом", "Гігант з конфетті та нап", 1000, true));
         productList.add(new Product(15, "Латексний кольоровий гігант з написом", "Гігант з написом", 900, true));
         productList.add(new Product(16, "Дзеркальний гігант з написом", "Дзеркальний з написом", 1000, true));
-        productList.add(new Product(31, "Bubble з пір’ям без напису", "Bubble без напису", 650, true));
-        productList.add(new Product(32, "Bubble з пір’ям з написом", "Bubble з написом", 750, true));
+        productList.add(new Product(31, "Bubble з пір’ям або кульками без напису", "Bubble без напису", 650, true));
+        productList.add(new Product(32, "Bubble з пір’ям або кульками з написом", "Bubble з написом", 750, true));
         productList.add(new Product(6, "Фольгована гелієва кулька 18д без малюнка", "18д без мал", 130, true));
         productList.add(new Product(7, "Фольгована гелієва кулька 18д з малюнком", "18д з мал", 190, true));
         productList.add(new Product(8, "Фольгована гелієва кулька 18д з індивідуальним написом", "18д з індивід", 190, true));
@@ -54,6 +54,7 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(19, "Спіраль тассел", "Спіраль", 80, false));
 //        productList.add(new Product(24, "Фольгована кулька сфера", "Сфера", 400, true));
         productList.add(new Product(35, "Гендерна кулька з кульками та конфетті всередині", "Гендерна", 950, true));
+//        productList.add(new Product(36, "Повітряна композиція з місяцем та пупсом", "Повітряна комп", 600, true));
 
     }
     private static int tempProductId;
