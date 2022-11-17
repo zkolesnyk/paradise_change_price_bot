@@ -21,7 +21,7 @@ public class Bot extends TelegramLongPollingBot {
     {
         productList.add(new Product(1, "Латексна гелієва кулька без малюнка", "12д без мал", 50, true));
         productList.add(new Product(2, "Латексна гелієва кулька з малюнком/написом", "12д з мал", 55, true));
-        productList.add(new Product(3, "Латексна гелієва кулька хром", "Хром", 54, true));
+        productList.add(new Product(3, "Латексна гелієва кулька хром", "Хром", 65, true));
         productList.add(new Product(4, "Латексна гелієва кулька агат", "Агат", 65, true));
         productList.add(new Product(5, "Латексна гелієва кулька з конфетті", "Конфетті 12д", 65, true));
         productList.add(new Product(12, "Латексна гелієва з індивідуальним написом", "12д з індивід", 90, true));
@@ -40,6 +40,7 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(30, "Коробка-сюрприз з кольоровою наліпкою", "Коробка з наклейкою", 700, true));
         productList.add(new Product(20, "Фольгована цифра 96 см", "Цифра 96 см", 340, true));
         productList.add(new Product(21, "Фольгована цифра 70 см", "Цифра 70 см", 290, true));
+        productList.add(new Product(34, "Цифра з повітрям на підставці", "Цифра з повітр", 550, true));
         productList.add(new Product(22, "Ходяча фольгована фігура Міккі/Мінні", "Ходячка Міккі/Мінні", 1250, true));
         productList.add(new Product(23, "Ходяча фольгована фігура", "Ходячки всі", 1350, true));
         productList.add(new Product(25, "Велика фольгована фігура", "Фігура за 300", 300, true));
@@ -51,6 +52,8 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(11, "Транспортувальний пакет", "Пакет", 30, false));
         productList.add(new Product(18, "Китиця тассел", "Китиця", 40, false));
         productList.add(new Product(19, "Спіраль тассел", "Спіраль", 80, false));
+        productList.add(new Product(24, "Фольгована кулька сфера", "Сфера", 400, true));
+
     }
     private static int tempProductId;
     private static int tempProductQuantity;
@@ -141,18 +144,20 @@ public class Bot extends TelegramLongPollingBot {
                     description.append("\n<p>Всього кульок у наборі: ").append(balloons).append(" шт.").append("</p>");
 
                     try {
-                        UpdateExcel.createRow(tempProductSKU, description.toString(), sum, productQuantity.keySet());
+                        UpdateExcel.createRow(tempProductSKU, description.toString(), sum, productQuantity.toString());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 
                     try {
-                        execute(sendSomething(update.getCallbackQuery().getMessage(), description.toString()));
+                        execute(sendSomething(update.getCallbackQuery().getMessage(), "Набір №" + tempProductSKU + "\n" + description.toString() + "\n" + "Вартість набору: " + sum + " грн."));
                         execute(oneMore(update.getCallbackQuery().getMessage()));
                     } catch (TelegramApiException e) {
                         e.printStackTrace();
                     }
                     userStatus.put(update.getCallbackQuery().getMessage().getChatId(), BotStatus.DEFAULT.get());
+                    productQuantity.clear();
+                    description = null;
                 }
                 if (update.getCallbackQuery().getData().contains("Cancel")) {
                     productQuantity.clear();
@@ -238,28 +243,43 @@ public class Bot extends TelegramLongPollingBot {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
 
         List<List<InlineKeyboardButton>> rowsList = new ArrayList<>();
-        for (Product product : productList) {
+        for (int i = 0; i < productList.size(); i++) {
             List<InlineKeyboardButton> buttonsRow = new ArrayList<>();
-            InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
-            inlineKeyboardButton.setText(product.getShortName() + " — " + productQuantity.getOrDefault(product.getId(), 0));
-            inlineKeyboardButton.setCallbackData("AddProduct+" + product.getId());
-            buttonsRow.add(inlineKeyboardButton);
+            Product first = productList.get(i);
+            InlineKeyboardButton firstButton = new InlineKeyboardButton();
+            firstButton.setText(first.getShortName() + " — " + productQuantity.getOrDefault(first.getId(), 0));
+            firstButton.setCallbackData("AddProduct+" + first.getId());
+            buttonsRow.add(firstButton);
+            if (productList.listIterator(i).hasNext()) {
+                Product second = productList.get(i + 1);
+                InlineKeyboardButton secondButton = new InlineKeyboardButton();
+                secondButton.setText(second.getShortName() + " — " + productQuantity.getOrDefault(second.getId(), 0));
+                secondButton.setCallbackData("AddProduct+" + second.getId());
+                buttonsRow.add(secondButton);
+            }
             rowsList.add(buttonsRow);
+            i++;
         }
+//        for (Product product : productList) {
+//            List<InlineKeyboardButton> buttonsRow = new ArrayList<>();
+//            InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
+//            inlineKeyboardButton.setText(product.getShortName() + " — " + productQuantity.getOrDefault(product.getId(), 0));
+//            inlineKeyboardButton.setCallbackData("AddProduct+" + product.getId());
+//            buttonsRow.add(inlineKeyboardButton);
+//            rowsList.add(buttonsRow);
+//        }
 
         InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
-        inlineKeyboardButton.setText("Создать набор");
+        inlineKeyboardButton.setText("Створити набір");
         inlineKeyboardButton.setCallbackData("Create");
         List<InlineKeyboardButton> buttonsRow = new ArrayList<>();
         buttonsRow.add(inlineKeyboardButton);
-        rowsList.add(buttonsRow);
 
         InlineKeyboardButton inlineKeyboardButton2 = new InlineKeyboardButton();
-        inlineKeyboardButton2.setText("Отменить");
+        inlineKeyboardButton2.setText("Скасувати");
         inlineKeyboardButton2.setCallbackData("Cancel");
-        List<InlineKeyboardButton> buttonsRow2 = new ArrayList<>();
-        buttonsRow2.add(inlineKeyboardButton2);
-        rowsList.add(buttonsRow2);
+        buttonsRow.add(inlineKeyboardButton2);
+        rowsList.add(buttonsRow);
 
         inlineKeyboardMarkup.setKeyboard(rowsList);
 

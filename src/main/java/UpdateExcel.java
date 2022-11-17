@@ -10,7 +10,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class UpdateExcel {
 
-    public static void createRow(int sku, String description, int price, Object keySet) throws IOException {
+    public static void createRow(int sku, String description, int price, String array) throws IOException {
 
         File file = new File("C:/paradise/descriptions.xlsx");
         // Read XSL file
@@ -38,7 +38,7 @@ public class UpdateExcel {
         XSSFCell cell2 = newRow.createCell(2);
         cell2.setCellValue(price);
         XSSFCell cell3 = newRow.createCell(3);
-        cell2.setCellValue(keySet.toString());
+        cell3.setCellValue(array);
 
         System.out.println(emptyRow);
 
