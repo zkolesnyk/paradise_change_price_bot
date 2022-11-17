@@ -1,34 +1,41 @@
-public enum Product {
-    LATEX(1, "Латексна гелієва кулька без малюнка"),
-    LATEX_WITH_PICTURE(2, "Латексна гелієва кулька з малюнком"),
-    CHROME(3, "Латексна гелієва кулька хром"),
-    AGATE(4, "Латексна гелієва кулька агат"),
-    CONFETTI(5, "Латексна гелієва кулька з конфетті"),
-    FOIL(6, "Фольгована гелієва кулька 18д без малюнка"),
-    FOIL_WITH_PICTURE(7, "Фольгована гелієва кулька з малюнком"),
-    FOIL_WITH_INDIVIDUAL_PRINT(8, "Фольгована гелієва кулька з індивідуальним принтом"),
-    SURPRISE_BOX(9, "Коробка-сюрприз з індивідуальним написом");
-
-    private String name;
+public class Product {
+    private String fullName;
+    private String shortName;
     private final int id;
+
+    public boolean isBalloon() {
+        return balloon;
+    }
+
+    private final boolean balloon;
+    private final int price;
     private int quantity = 0;
     public int getQuantity() {
         return this.quantity;
     }
     public void setQuantity(int quantity) {
         if (quantity != 0) {
-            this.name += ": " + this.quantity + " шт.";
+            this.fullName += ": " + this.quantity + " шт.";
         }
         this.quantity = quantity;
     }
-    public String getName() {
-        return this.name;
+    public String getFullName() {
+        return this.fullName;
     }
-    public int getValue() {
+    public String getShortName() {
+        return this.shortName;
+    }
+    public int getId() {
         return this.id;
     }
-    Product(int id, String name) {
+    public int getPrice() {
+        return this.price;
+    }
+    Product(int id, String name, String shortName, int price, boolean balloon) {
         this.id = id;
-        this.name = name;
+        this.fullName = name;
+        this.shortName = shortName;
+        this.price = price;
+        this.balloon = balloon;
     }
 }
