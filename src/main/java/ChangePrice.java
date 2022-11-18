@@ -35,6 +35,8 @@ public class ChangePrice {
                 XSSFCell cellNewSKU = rowNew.getCell(0);
                 XSSFCell cellNewHashMap = rowNew.getCell(3);
                 XSSFCell cellNewPrice = rowNew.getCell(2);
+                XSSFCell cellNewDescription = rowNew.getCell(1);
+                System.out.println(cellNewDescription);
                 int newPrice = Integer.parseInt(cellNewPrice.toString().replace(".0", ""));
 
                 int skuNew = Integer.parseInt(cellNewSKU.toString().replace(".0", ""));
@@ -51,8 +53,12 @@ public class ChangePrice {
                         XSSFCell cellOldSKU = rowOld.getCell(0);
                         int skuOld = Integer.parseInt(cellOldSKU.toString().replace(".0", ""));
                         if (skuNew == skuOld) {
+
                             XSSFCell cellOldPrice = rowOld.getCell(16);
                             cellOldPrice.setCellValue(newPrice);
+
+                            XSSFCell cellOldDescription = rowOld.getCell(29);
+                            cellOldDescription.setCellValue(cellNewDescription.toString());
 
                             System.out.println("old sku: " + skuOld);
                             System.out.println("old price " + cellOldPrice);
@@ -63,12 +69,6 @@ public class ChangePrice {
                 break;
             }
         }
-
-//        XSSFRow newRow = sheetNew.createRow(emptyRow);
-//        XSSFCell cell0 = newRow.createCell(0);
-//        cell0.setCellValue(sku);
-//
-//        System.out.println(emptyRow);
 
         inputStreamNew.close();
         inputStreamOld.close();
