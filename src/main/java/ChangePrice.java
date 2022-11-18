@@ -62,6 +62,7 @@ public class ChangePrice {
 
                             System.out.println("old sku: " + skuOld);
                             System.out.println("old price " + cellOldPrice);
+                            System.out.println("new price " + cellNewPrice);
                         }
                     } else break;
                 }
