@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Bot extends TelegramLongPollingBot {
+public class    Bot extends TelegramLongPollingBot {
 
     public static HashMap<Long, Integer> userStatus = new HashMap<>();
     public static HashMap<Integer, Integer> productQuantity = new HashMap<>();
@@ -24,7 +24,7 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(3, "Латексна гелієва кулька хром", "Хром", 80, true));
         productList.add(new Product(4, "Латексна гелієва кулька агат", "Агат", 90, true));
         productList.add(new Product(5, "Латексна гелієва кулька з конфетті", "Конфетті 12д", 80, true));
-        productList.add(new Product(12, "Латексна гелієва з індивідуальним написом", "12д з індивід", 105, true));
+        productList.add(new Product(12, "Латексна гелієва кулька з індивідуальним написом", "12д з індивід", 105, true));
         productList.add(new Product(13, "Прозорий гігант з конфетті", "Гігант з конфетті без нап", 850, true));
         productList.add(new Product(14, "Прозорий гігант з конфетті та написом", "Гігант з конфетті та нап", 1000, true));
         productList.add(new Product(15, "Латексний кольоровий гігант з написом", "Гігант з написом", 900, true));
@@ -52,9 +52,13 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(11, "Транспортувальний пакет", "Пакет", 30, false));
         productList.add(new Product(18, "Китиця тассел", "Китиця", 40, false));
         productList.add(new Product(19, "Спіраль тассел", "Спіраль", 80, false));
-//        productList.add(new Product(24, "Фольгована кулька сфера", "Сфера", 400, true));
+        productList.add(new Product(24, "Фольгована кулька сфера", "Сфера", 400, true));
         productList.add(new Product(35, "Гендерна кулька з кульками та конфетті всередині", "Гендерна", 950, true));
-//        productList.add(new Product(36, "Повітряна композиція з місяцем та пупсом", "Повітряна комп", 600, true));
+        productList.add(new Product(36, "Повітряна композиція з місяцем та пупсом", "Повітряна комп", 600, true));
+        productList.add(new Product(37, "Латексний кольоровий гігант", "Гігант без напису", 750, true));
+        productList.add(new Product(38, "Латексний кольоровий гігант у вигляді тваринки", "Гігант тваринка", 1200, true));
+        productList.add(new Product(39, "Каркасна цифра аеромозаїка", "Аеромозаїка", 1500, false));
+        productList.add(new Product(40, "?", "?", 1200, false));
 
     }
     private static int tempProductId;
