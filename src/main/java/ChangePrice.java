@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 public class ChangePrice {
-
     private static List<Product> productList = new ArrayList<>();
     static {
         productList.add(new Product(1, "Латексна гелієва кулька без малюнка", "12д без мал", 65, true));
@@ -56,11 +55,16 @@ public class ChangePrice {
         productList.add(new Product(37, "Латексний кольоровий гігант", "Гігант без напису", 750, true));
         productList.add(new Product(38, "Латексний кольоровий гігант у вигляді тваринки", "Гігант тваринка", 1200, true));
         productList.add(new Product(39, "Каркасна цифра аеромозаїка", "Аеромозаїка", 1500, false));
-        productList.add(new Product(40, "?", "?", 1200, false));
+        productList.add(new Product(40, "Bubble з квітами", "Bubble з квітами", 2200, false));
+        productList.add(new Product(41, "Коробка з трояндами та ведмідь", "Коробка+медведь", 2200+2000, false));
+        productList.add(new Product(42, "Кульки з повітрям на підлогу", "На підлогу", 10, false));
+        productList.add(new Product(43, "Індивідуальна гірлянда на кульку", "Гірлянда на кульку", 50, false));
+        productList.add(new Product(44, "Індивідуальний дощик на кульку", "Дощик на кульку", 40, false));
+        productList.add(new Product(45, "Дзеркальний гігант", "Дзеркальний без напису", 850, true));
+        productList.add(new Product(46, "Зірки з повітрям на підлогу", "Зірки на підлогу", 70, false));
 
     }
     public static void main(String[] args) throws IOException {
-
         File newFile = new File("C:/paradise/descriptions.xlsx");
         File oldFile = new File("C:/paradise/old.xlsx");
         // Read XSL file

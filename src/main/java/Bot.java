@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class    Bot extends TelegramLongPollingBot {
+public class Bot extends TelegramLongPollingBot {
 
     public static HashMap<Long, Integer> userStatus = new HashMap<>();
     public static HashMap<Integer, Integer> productQuantity = new HashMap<>();
@@ -58,7 +58,13 @@ public class    Bot extends TelegramLongPollingBot {
         productList.add(new Product(37, "Латексний кольоровий гігант", "Гігант без напису", 750, true));
         productList.add(new Product(38, "Латексний кольоровий гігант у вигляді тваринки", "Гігант тваринка", 1200, true));
         productList.add(new Product(39, "Каркасна цифра аеромозаїка", "Аеромозаїка", 1500, false));
-        productList.add(new Product(40, "?", "?", 1200, false));
+        productList.add(new Product(40, "Bubble з квітами", "Bubble з квітами", 2200, false));
+        productList.add(new Product(41, "Коробка з трояндами та ведмідь", "Коробка+медведь", 2200+2000, false));
+        productList.add(new Product(42, "Кульки з повітрям на підлогу", "На підлогу", 10, false));
+        productList.add(new Product(43, "Індивідуальна гірлянда на кульку", "Гірлянда на кульку", 50, false));
+        productList.add(new Product(44, "Індивідуальний дощик на кульку", "Дощик на кульку", 40, false));
+        productList.add(new Product(45, "Дзеркальний гігант", "Дзеркальний без напису", 850, true));
+        productList.add(new Product(46, "Зірки з повітрям на підлогу", "Зірки на підлогу", 70, false));
 
     }
     private static int tempProductId;
@@ -67,8 +73,6 @@ public class    Bot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-
-
 
         if (update.hasMessage()) {
             Message message = update.getMessage();
@@ -292,6 +296,10 @@ public class    Bot extends TelegramLongPollingBot {
         inlineKeyboardMarkup.setKeyboard(rowsList);
 
         return inlineKeyboardMarkup;
+    }
+
+    public static List<Product> getProductList() {
+        return productList;
     }
 
     @Override
