@@ -66,7 +66,8 @@ public class ChangePrice {
 
 
     }
-    public static void main(String[] args) throws IOException {
+
+    public static void writeNewPriceToOldFile() throws IOException{
         File newFile = new File("C:/paradise/descriptions.xlsx");
         File oldFile = new File("C:/paradise/old.xlsx");
         // Read XSL file
@@ -138,6 +139,84 @@ public class ChangePrice {
         workbookOld.write(outOld);
         outNew.close();
         outOld.close();
+    }
+
+    public static void writeNewDescriptionToOldFile() throws IOException{
+        File newFile = new File("C:/paradise/descriptions.xlsx");
+        File oldFile = new File("C:/paradise/old.xlsx");
+        // Read XSL file
+        FileInputStream inputStreamNew = new FileInputStream(newFile);
+        FileInputStream inputStreamOld = new FileInputStream(oldFile);
+
+        // Get the workbook instance for XLS file
+        XSSFWorkbook workbookNew = new XSSFWorkbook(inputStreamNew);
+        XSSFWorkbook workbookOld = new XSSFWorkbook(inputStreamOld);
+
+        // Get first sheet from the workbook
+        XSSFSheet sheetNew = workbookNew.getSheetAt(0);
+        XSSFSheet sheetOld = workbookOld.getSheetAt(0);
+
+        for (int i = 0; i < 2000; i++) {
+            if (sheetNew.getRow(i) != null) {
+                XSSFRow rowNew = sheetNew.getRow(i);
+                XSSFCell cellNewSKU = rowNew.getCell(0);
+                XSSFCell cellNewHashMap = rowNew.getCell(3);
+                XSSFCell cellNewDescription = rowNew.getCell(1);
+
+                int skuNew = Integer.parseInt(cellNewSKU.toString().replace(".0", ""));
+
+                Map<String, String> productQuantity = Splitter.on(", ")
+                        .withKeyValueSeparator("=")
+                        .split(cellNewHashMap.toString().replace("{", "").replace("}", ""));
+
+                int sum = 0;
+                int balloons = 0;
+                StringBuilder description = new StringBuilder();
+                description.append("<p>Композиція гелієвих кульок складається з:</p>\n");
+                for (String j : productQuantity.keySet()) {
+                    description.append(String.format("<p>- %s — %s шт.</p>\n", getProductById(Integer.parseInt(j)).getFullName(), productQuantity.get(j)));
+                    if (getProductById(Integer.parseInt(j)).isBalloon()) {
+                        balloons += Integer.parseInt(productQuantity.get(j));
+                    }
+                }
+
+                description.append("\n<p>Всього кульок у наборі: ").append(balloons).append(" шт.").append("</p>");
+
+                System.out.println(skuNew);
+                System.out.println(description);
+
+
+                for (int j = 1; j < 2000; j++) {
+                    if (sheetOld.getRow(j) != null) {
+                        XSSFRow rowOld = sheetOld.getRow(j);
+                        XSSFCell cellOldSKU = rowOld.getCell(0);
+                        int skuOld = Integer.parseInt(cellOldSKU.toString().replace(".0", ""));
+                        if (skuNew == skuOld) {
+
+                            XSSFCell cellOldDescription = rowOld.getCell(29);
+                            cellOldDescription.setCellValue(description.toString());
+                        }
+                    } else break;
+                }
+            } else {
+                break;
+            }
+        }
+
+        inputStreamNew.close();
+        inputStreamOld.close();
+
+        // Write File
+        FileOutputStream outNew = new FileOutputStream(newFile);
+        FileOutputStream outOld = new FileOutputStream(oldFile);
+        workbookNew.write(outNew);
+        workbookOld.write(outOld);
+        outNew.close();
+        outOld.close();
+    }
+    public static void main(String[] args) throws IOException {
+//        writeNewPriceToOldFile();
+        writeNewDescriptionToOldFile();
     }
 
     public static Product getProductById(int id) {
