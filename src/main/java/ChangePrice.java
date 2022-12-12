@@ -214,9 +214,62 @@ public class ChangePrice {
         outNew.close();
         outOld.close();
     }
+
+    public static void writePriceWithoutDiscountToNewFile() throws IOException{
+        File newFile = new File("C:/paradise/descriptions.xlsx");
+        File oldFile = new File("C:/paradise/old.xlsx");
+        // Read XSL file
+        FileInputStream inputStreamNew = new FileInputStream(newFile);
+        FileInputStream inputStreamOld = new FileInputStream(oldFile);
+
+        // Get the workbook instance for XLS file
+        XSSFWorkbook workbookNew = new XSSFWorkbook(inputStreamNew);
+        XSSFWorkbook workbookOld = new XSSFWorkbook(inputStreamOld);
+
+        // Get first sheet from the workbook
+        XSSFSheet sheetNew = workbookNew.getSheetAt(0);
+        XSSFSheet sheetOld = workbookOld.getSheetAt(0);
+
+
+        for (int i = 0; i < 2000; i++) {
+            if (sheetNew.getRow(i) != null) {
+                XSSFRow rowNew = sheetNew.getRow(i);
+                XSSFCell cellNewSKU = rowNew.getCell(0);
+                XSSFCell cellPriceWithDiscount = rowNew.getCell(9);
+                int skuNew = Integer.parseInt(cellNewSKU.toString().replace(".0", ""));
+
+                for (int j = 1; j < 2000; j++) {
+                    if (sheetOld.getRow(j) != null) {
+                        XSSFRow rowOld = sheetOld.getRow(j);
+                        XSSFCell cellOldSKU = rowOld.getCell(0);
+                        int skuOld = Integer.parseInt(cellOldSKU.toString().replace(".0", ""));
+                        if (skuNew == skuOld) {
+
+                            XSSFCell cellOldPrice = rowOld.getCell(16);
+                            cellOldPrice.setCellValue(String.valueOf(cellPriceWithDiscount));
+                        }
+                    } else break;
+                }
+            } else {
+                break;
+            }
+        }
+
+        inputStreamNew.close();
+        inputStreamOld.close();
+
+        // Write File
+        FileOutputStream outNew = new FileOutputStream(newFile);
+        FileOutputStream outOld = new FileOutputStream(oldFile);
+        workbookNew.write(outNew);
+        workbookOld.write(outOld);
+        outNew.close();
+        outOld.close();
+    }
     public static void main(String[] args) throws IOException {
 //        writeNewPriceToOldFile();
-        writeNewDescriptionToOldFile();
+//        writeNewDescriptionToOldFile();
+        writePriceWithoutDiscountToNewFile();
     }
 
     public static Product getProductById(int id) {

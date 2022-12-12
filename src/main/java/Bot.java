@@ -66,6 +66,7 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(45, "Дзеркальний гігант", "Дзеркальний без напису", 850, true));
         productList.add(new Product(46, "Зірки з повітрям на підлогу", "Зірки на підлогу", 70, false));
         productList.add(new Product(47, "Корзина з повітряною кулею з кульок", "Шар с корзиной", 4500, false));
+        productList.add(new Product(48, "?", "?", 4500, false));
 
     }
     private static int tempProductId;
