@@ -173,13 +173,14 @@ public class ChangePrice {
                 int balloons = 0;
                 StringBuilder description = new StringBuilder();
                 description.append("<p>Композиція гелієвих кульок складається з:</p>\n");
+                description.append("<ul class=\"product-description\">\n");
                 for (String j : productQuantity.keySet()) {
-                    description.append(String.format("<p>- %s — %s шт.</p>\n", getProductById(Integer.parseInt(j)).getFullName(), productQuantity.get(j)));
+                    description.append(String.format("<li>%s — %s шт.</li>\n", getProductById(Integer.parseInt(j)).getFullName(), productQuantity.get(j)));
                     if (getProductById(Integer.parseInt(j)).isBalloon()) {
                         balloons += Integer.parseInt(productQuantity.get(j));
                     }
                 }
-
+                description.append("</ul>");
                 description.append("\n<p>Всього кульок у наборі: ").append(balloons).append(" шт.").append("</p>");
 
                 System.out.println(skuNew);
@@ -268,8 +269,8 @@ public class ChangePrice {
     }
     public static void main(String[] args) throws IOException {
 //        writeNewPriceToOldFile();
-//        writeNewDescriptionToOldFile();
-        writePriceWithoutDiscountToNewFile();
+        writeNewDescriptionToOldFile();
+//        writePriceWithoutDiscountToNewFile();
     }
 
     public static Product getProductById(int id) {
