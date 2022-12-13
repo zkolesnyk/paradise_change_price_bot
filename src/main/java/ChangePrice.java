@@ -175,13 +175,36 @@ public class ChangePrice {
                 description.append("<p>Композиція гелієвих кульок складається з:</p>\n");
                 description.append("<ul class=\"product-description\">\n");
                 for (String j : productQuantity.keySet()) {
+                    Product product = getProductById(Integer.parseInt(j));
                     description.append(String.format("<li>%s — %s шт.</li>\n", getProductById(Integer.parseInt(j)).getFullName(), productQuantity.get(j)));
-                    if (getProductById(Integer.parseInt(j)).isBalloon()) {
+                    if (product.isBalloon()) {
                         balloons += Integer.parseInt(productQuantity.get(j));
                     }
+                    sum += Integer.parseInt(productQuantity.get(j)) * product.getPrice();
                 }
+
                 description.append("</ul>");
                 description.append("\n<p>Всього кульок у наборі: ").append(balloons).append(" шт.").append("</p>");
+
+                description.append("\n\n<ul><br>");
+                if (productQuantity.keySet().contains("20") || productQuantity.keySet().contains("21") || productQuantity.keySet().contains("34") || productQuantity.keySet().contains("39")) {
+                    description.append("\n<li class=\"description_alert\">Цифри у наборі можна замінити на будь-які інші.</li>");
+                }
+                if (productQuantity.keySet().contains("14") || productQuantity.keySet().contains("15") || productQuantity.keySet().contains("16") || productQuantity.keySet().contains("32") || productQuantity.keySet().contains("8") || productQuantity.keySet().contains("17")) {
+                    description.append("\n<li class=\"description_alert\">Написи на кульках можна змінити за вашим бажанням.</li>");
+                }
+                if (productQuantity.keySet().contains("9")) {
+                    description.append("\n<li class=\"description_alert\">Напис на коробці можна змінити за вашим бажанням.</li>");
+                }
+                if (productQuantity.keySet().size() > 2 ) {
+                    if (sum < 1700) {
+                        description.append("\n<li class=\"description_delivery\">Для безкоштовної доставки цього набору потрібно додати товарів ще на ").append(1700 - sum).append(" грн.</li>");
+                    } else {
+                        description.append("\n<li class=\"description_delivery\">Можлива безкоштовна доставка цього набору. Додайте набір у кошик, щоб подивитись деталі.</li>");
+                    }
+                    description.append("\n<li class=\"description_flowers\">Додайте квіти до замовлення: <a href=\"/floristika-2/\">розділ «Флористика»</a></li>");
+                }
+                description.append("</ul>");
 
                 System.out.println(skuNew);
                 System.out.println(description);
