@@ -43,8 +43,6 @@ public class UpdateExcel {
         System.out.println(emptyRow);
 
         inputStream.close();
-
-        // Write File
         FileOutputStream out = new FileOutputStream(file);
         workbook.write(out);
         out.close();
