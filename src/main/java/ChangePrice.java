@@ -293,7 +293,7 @@ public class ChangePrice {
                 descriptionCell.setCellValue(description.toString());
                 XSSFCell priceCell = row.getCell(2);
                 priceCell.setCellValue(sum);
-                XSSFCell priceWithoutDiscount = row.getCell(4);
+                XSSFCell priceWithoutDiscount = row.createCell(4);
                 int min = 10;
                 int max = 20;
                 int diff = max - min;
