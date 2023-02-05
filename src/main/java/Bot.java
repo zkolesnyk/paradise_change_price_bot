@@ -1,6 +1,8 @@
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.send.SendAnimation;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -17,7 +19,7 @@ public class Bot extends TelegramLongPollingBot {
     public static HashMap<Long, Integer> userStatus = new HashMap<>();
     public static HashMap<Integer, Integer> productQuantity = new HashMap<>();
     private static StringBuilder description = new StringBuilder();
-    private static List<Product> productList = new ArrayList<>();
+    private static final List<Product> productList = new ArrayList<>();
     {
         productList.add(new Product(1, "Латексна гелієва кулька без малюнка", "12д без мал", 65, true));
         productList.add(new Product(2, "Латексна гелієва кулька з малюнком/написом", "12д з мал", 70, true));
@@ -43,11 +45,11 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(34, "Цифра з повітрям на підставці", "Цифра з повітр", 550, true));
         productList.add(new Product(22, "Ходяча фольгована фігура Міккі/Мінні", "Ходячка Міккі/Мінні", 1350, true));
         productList.add(new Product(23, "Ходяча фольгована фігура", "Ходячки всі", 1550, true));
-        productList.add(new Product(25, "Велика фольгована фігура", "Фігура за 300", 300+60, true));
-        productList.add(new Product(26, "Велика фольгована фігура", "Фігура за 350", 350+60, true));
-        productList.add(new Product(27, "Велика фольгована фігура", "Фігура за 360", 360+60, true));
-        productList.add(new Product(28, "Велика фольгована фігура", "Фігура за 400", 400+80, true));
-        productList.add(new Product(29, "Велика фольгована фігура", "Фігура за 450", 450+70, true));
+        productList.add(new Product(25, "Велика фольгована фігура", "Фігура за 360", 300+60, true));
+        productList.add(new Product(26, "Велика фольгована фігура", "Фігура за 410", 350+60, true));
+        productList.add(new Product(27, "Велика фольгована фігура", "Фігура за 420", 360+60, true));
+        productList.add(new Product(28, "Велика фольгована фігура", "Фігура за 480", 400+80, true));
+        productList.add(new Product(29, "Велика фольгована фігура", "Фігура за 520", 450+70, true));
         productList.add(new Product(10, "Вантаж декоративний", "Груз", 10, false));
         productList.add(new Product(11, "Транспортувальний пакет", "Пакет", 30, false));
         productList.add(new Product(18, "Китиця тассел", "Китиця", 40, false));
@@ -133,6 +135,7 @@ public class Bot extends TelegramLongPollingBot {
                     tempProductId = Integer.parseInt(update.getCallbackQuery().getData().replaceAll("\\D", ""));
                     userStatus.put(update.getCallbackQuery().getMessage().getChatId(), BotStatus.GET_QUANTITY.get());
                     try {
+                        execute(defaultAnswerCallbackQuery(update.getCallbackQuery()));
                         execute(sendSomething(update.getCallbackQuery().getMessage(), "Введіть кількість:"));
                     } catch (TelegramApiException e) {
                         e.printStackTrace();
@@ -140,6 +143,11 @@ public class Bot extends TelegramLongPollingBot {
                 }
 
                 if (update.getCallbackQuery().getData().contains("Create")) {
+                    try {
+                        execute(defaultAnswerCallbackQuery(update.getCallbackQuery()));
+                    } catch (TelegramApiException e) {
+                        e.printStackTrace();
+                    }
                     userStatus.put(update.getCallbackQuery().getMessage().getChatId(), BotStatus.CREATE.get());
                     System.out.println(productQuantity.toString());
                     System.out.println();
@@ -176,6 +184,7 @@ public class Bot extends TelegramLongPollingBot {
                 if (update.getCallbackQuery().getData().contains("Cancel")) {
                     productQuantity.clear();
                     try {
+                        execute(defaultAnswerCallbackQuery(update.getCallbackQuery()));
                         execute(sendSomething(update.getCallbackQuery().getMessage(), "Скасовано."));
                     } catch (TelegramApiException e) {
                         e.printStackTrace();
@@ -188,6 +197,7 @@ public class Bot extends TelegramLongPollingBot {
             if (userStatus.getOrDefault(update.getCallbackQuery().getMessage().getChatId(), 0) == BotStatus.DEFAULT.get()) {
                 if (update.getCallbackQuery().getData().contains("OneMore")) {
                     try {
+                        execute(defaultAnswerCallbackQuery(update.getCallbackQuery()));
                         execute(sendSomething(update.getCallbackQuery().getMessage(), "Введіть артикул набору:"));
                     } catch (TelegramApiException e) {
                         e.printStackTrace();
@@ -196,6 +206,12 @@ public class Bot extends TelegramLongPollingBot {
                 }
             }
         }
+    }
+
+    public static AnswerCallbackQuery defaultAnswerCallbackQuery(CallbackQuery callbackQuery) {
+        AnswerCallbackQuery answerCallbackQuery = new AnswerCallbackQuery();
+        answerCallbackQuery.setCallbackQueryId(callbackQuery.getId());
+        return answerCallbackQuery;
     }
 
     private SendMessage oneMore(Message message) {
