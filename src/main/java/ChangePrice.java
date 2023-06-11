@@ -32,11 +32,11 @@ public class ChangePrice {
         productList.add(new Product(17, "Фольговане серце/зірка гігант з написом", "Фольга гігант з написом", 700+100, true));
         productList.add(new Product(9, "Коробка-сюрприз з індивідуальним написом", "Коробка з написом", 650+50, false));
         productList.add(new Product(30, "Коробка-сюрприз з кольоровою наліпкою", "Коробка з наклейкою", 700+50, false));
-        productList.add(new Product(20, "Фольгована цифра 96 см", "Цифра 96 см", 400, true));
+        productList.add(new Product(20, "Фольгована цифра 96 см", "Цифра 96 см", 450, true));
         productList.add(new Product(21, "Фольгована цифра 70 см", "Цифра 70 см", 310, true));
         productList.add(new Product(34, "Цифра з повітрям на підставці", "Цифра з повітр", 550, true));
         productList.add(new Product(22, "Ходяча фольгована фігура Міккі/Мінні", "Ходячка Міккі/Мінні", 1350, true));
-        productList.add(new Product(23, "Ходяча фольгована фігура", "Ходячки всі", 1550, true));
+        productList.add(new Product(23, "Ходяча фольгована фігура", "Ходячки всі", 1800, true));
         productList.add(new Product(25, "Велика фольгована фігура", "Фігура за 300", 300+60, true));
         productList.add(new Product(26, "Велика фольгована фігура", "Фігура за 350", 350+60, true));
         productList.add(new Product(27, "Велика фольгована фігура", "Фігура за 360", 360+60, true));
@@ -288,9 +288,9 @@ public class ChangePrice {
 
                 System.out.println(dataSKU);
                 System.out.println(description);
-
-                XSSFCell descriptionCell = row.getCell(1);
-                descriptionCell.setCellValue(description.toString());
+//
+//                XSSFCell descriptionCell = row.getCell(1);
+//                descriptionCell.setCellValue(description.toString());
                 XSSFCell priceCell = row.getCell(2);
                 priceCell.setCellValue(sum);
                 XSSFCell priceWithoutDiscount = row.createCell(4);
