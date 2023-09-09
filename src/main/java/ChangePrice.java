@@ -35,7 +35,7 @@ public class ChangePrice {
         productList.add(new Product(20, "Фольгована цифра 96 см", "Цифра 96 см", 450, true));
         productList.add(new Product(21, "Фольгована цифра 70 см", "Цифра 70 см", 310, true));
         productList.add(new Product(34, "Цифра з повітрям на підставці", "Цифра з повітр", 550, true));
-        productList.add(new Product(22, "Ходяча фольгована фігура Міккі/Мінні", "Ходячка Міккі/Мінні", 1350, true));
+        productList.add(new Product(22, "Ходяча фольгована фігура Міккі/Мінні", "Ходячка Міккі/Мінні", 1800, true));
         productList.add(new Product(23, "Ходяча фольгована фігура", "Ходячки всі", 1800, true));
         productList.add(new Product(25, "Велика фольгована фігура", "Фігура за 300", 300+60, true));
         productList.add(new Product(26, "Велика фольгована фігура", "Фігура за 350", 350+60, true));
