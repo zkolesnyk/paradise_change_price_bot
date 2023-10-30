@@ -12,7 +12,7 @@ public class UpdateExcel {
 
     public static void createRow(int sku, String description, int price, String array) throws IOException {
 
-        File file = new File("C:/paradise/descriptions.xlsx");
+        File file = new File("/Users/yevheniikolesnyk/Мой диск/paradise/descriptions.xlsx");
         // Read XSL file
         FileInputStream inputStream = new FileInputStream(file);
 
