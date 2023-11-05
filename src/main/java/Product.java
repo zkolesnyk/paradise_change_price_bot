@@ -31,9 +31,9 @@ public class Product {
     public int getPrice() {
         return this.price;
     }
-    Product(int id, String name, String shortName, int price, boolean balloon) {
+    Product(int id, String fullName, String shortName, int price, boolean balloon) {
         this.id = id;
-        this.fullName = name;
+        this.fullName = fullName;
         this.shortName = shortName;
         this.price = price;
         this.balloon = balloon;

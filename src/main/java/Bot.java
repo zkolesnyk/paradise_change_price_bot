@@ -50,6 +50,7 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(27, "Велика фольгована фігура", "Фігура за 420", 420, true));
         productList.add(new Product(28, "Велика фольгована фігура", "Фігура за 480", 480, true));
         productList.add(new Product(29, "Велика фольгована фігура", "Фігура за 520", 520, true));
+        productList.add(new Product(51, "Велика фольгована фігура", "Фігура за 550", 550, true));
         productList.add(new Product(10, "Вантаж декоративний", "Груз", 10, false));
         productList.add(new Product(11, "Транспортувальний пакет", "Пакет", 30, false));
         productList.add(new Product(18, "Китиця тассел", "Китиця", 40, false));
@@ -71,7 +72,7 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(48, "Корзина з повітряною кулею з кульок (хром)", "Шар с корзиной (хром)", 5500, false));
         productList.add(new Product(49, "Фотозона — гірлянда кульок на банері з написом", "Фотозона дабл белый банер", 9500, false));
         productList.add(new Product(50, "Фольгована міні-ходяча фігура", "Мини ходячка", 750, false));
-
+        productList.add(new Product(52, "-", "-", 0, true));
     }
     private static int tempProductId;
     private static int tempProductQuantity;
