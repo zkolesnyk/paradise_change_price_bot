@@ -1,4 +1,4 @@
-public enum BotStatus {
+public enum UserStatus {
     DEFAULT(0),
     GET_SKU(1),
     GET_NAME(2),
@@ -10,7 +10,7 @@ public enum BotStatus {
     public int get() {
         return value;
     }
-    BotStatus(int value) {
+    UserStatus(int value) {
         this.value = value;
     }
 

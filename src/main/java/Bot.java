@@ -1,6 +1,5 @@
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
-import org.telegram.telegrambots.meta.api.methods.send.SendAnimation;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -16,7 +15,7 @@ import java.util.List;
 
 public class Bot extends TelegramLongPollingBot {
 
-    public static HashMap<Long, Integer> userStatus = new HashMap<>();
+    public static HashMap<Long, UserStatus> userStatus = new HashMap<>();
     public static HashMap<Integer, Integer> productQuantity = new HashMap<>();
     private static StringBuilder description = new StringBuilder();
     private static final List<Product> productList = new ArrayList<>();
@@ -56,7 +55,7 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(18, "Китиця тассел", "Китиця", 40, false));
         productList.add(new Product(19, "Спіраль тассел", "Спіраль", 100, false));
         productList.add(new Product(24, "Фольгована кулька сфера", "Сфера", 500, true));
-        productList.add(new Product(35, "Гендерна кулька з кульками та конфетті всередині", "Гендерна", 950+100, true));
+        productList.add(new Product(35, "Гендерна кулька з кульками та конфетті всередині", "Гендерна", 1200, true));
         productList.add(new Product(36, "Повітряна композиція з місяцем та пупсом", "Повітряна комп", 600, true));
         productList.add(new Product(37, "Латексний кольоровий гігант", "Гігант без напису", 1000, true));
         productList.add(new Product(38, "Латексний кольоровий гігант у вигляді тваринки", "Гігант тваринка", 1200+100, true));
@@ -83,7 +82,7 @@ public class Bot extends TelegramLongPollingBot {
 
         if (update.hasMessage()) {
             Message message = update.getMessage();
-            if (userStatus.getOrDefault(update.getMessage().getChatId(), 0) == BotStatus.DEFAULT.get()) {
+            if (userStatus.getOrDefault(update.getMessage().getChatId(), UserStatus.DEFAULT) == UserStatus.DEFAULT) {
                 System.out.println(update);
                 if (update.getMessage().hasText()) {
                     switch (message.getText()) {
@@ -100,28 +99,28 @@ public class Bot extends TelegramLongPollingBot {
                             } catch (TelegramApiException e) {
                                 e.printStackTrace();
                             }
-                            userStatus.put(message.getChatId(), BotStatus.GET_SKU.get());
+                            userStatus.put(message.getChatId(), UserStatus.GET_SKU);
                             break;
                         default:
                             break;
                     }
                 }
-            } else if (userStatus.get(update.getMessage().getChatId()) == BotStatus.GET_SKU.get()) {
+            } else if (userStatus.get(update.getMessage().getChatId()) == UserStatus.GET_SKU) {
                 tempProductSKU = Integer.parseInt(message.getText());
-                userStatus.put(message.getChatId(), BotStatus.GET_NAME.get());
+                userStatus.put(message.getChatId(), UserStatus.GET_NAME);
                 try {
                     execute(sendProducts(message));
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
-            } else if (userStatus.get(update.getMessage().getChatId()) == BotStatus.GET_QUANTITY.get()) {
+            } else if (userStatus.get(update.getMessage().getChatId()) == UserStatus.GET_QUANTITY) {
                 tempProductQuantity = Integer.parseInt(message.getText());
 
                 if (tempProductQuantity != 0) {
                     productQuantity.put(tempProductId, productQuantity.getOrDefault(tempProductId, 0) + tempProductQuantity);
                 }
 
-                userStatus.put(message.getChatId(), BotStatus.GET_NAME.get());
+                userStatus.put(message.getChatId(), UserStatus.GET_NAME);
                 try {
                     execute(sendSomething(message, getProductById(tempProductId).getFullName() + " — " + tempProductQuantity + " шт."));
                     execute(sendProducts(message));
@@ -133,10 +132,10 @@ public class Bot extends TelegramLongPollingBot {
         }
 
         if (update.hasCallbackQuery()) {
-            if (userStatus.get(update.getCallbackQuery().getMessage().getChatId()) == BotStatus.GET_NAME.get()) {
+            if (userStatus.get(update.getCallbackQuery().getMessage().getChatId()) == UserStatus.GET_NAME) {
                 if (update.getCallbackQuery().getData().contains("AddProduct")) {
                     tempProductId = Integer.parseInt(update.getCallbackQuery().getData().replaceAll("\\D", ""));
-                    userStatus.put(update.getCallbackQuery().getMessage().getChatId(), BotStatus.GET_QUANTITY.get());
+                    userStatus.put(update.getCallbackQuery().getMessage().getChatId(), UserStatus.GET_QUANTITY);
                     try {
                         execute(defaultAnswerCallbackQuery(update.getCallbackQuery()));
                         execute(sendSomething(update.getCallbackQuery().getMessage(), "Введіть кількість:"));
@@ -151,7 +150,7 @@ public class Bot extends TelegramLongPollingBot {
                     } catch (TelegramApiException e) {
                         e.printStackTrace();
                     }
-                    userStatus.put(update.getCallbackQuery().getMessage().getChatId(), BotStatus.CREATE.get());
+                    userStatus.put(update.getCallbackQuery().getMessage().getChatId(), UserStatus.CREATE);
                     System.out.println(productQuantity.toString());
                     System.out.println();
                     int sum = 0;
@@ -180,7 +179,7 @@ public class Bot extends TelegramLongPollingBot {
                     } catch (TelegramApiException e) {
                         e.printStackTrace();
                     }
-                    userStatus.put(update.getCallbackQuery().getMessage().getChatId(), BotStatus.DEFAULT.get());
+                    userStatus.put(update.getCallbackQuery().getMessage().getChatId(), UserStatus.DEFAULT);
                     productQuantity.clear();
                     description = null;
                 }
@@ -192,12 +191,12 @@ public class Bot extends TelegramLongPollingBot {
                     } catch (TelegramApiException e) {
                         e.printStackTrace();
                     }
-                    userStatus.put(update.getCallbackQuery().getMessage().getChatId(), BotStatus.DEFAULT.get());
+                    userStatus.put(update.getCallbackQuery().getMessage().getChatId(), UserStatus.DEFAULT);
                     description = null;
                 }
             }
 
-            if (userStatus.getOrDefault(update.getCallbackQuery().getMessage().getChatId(), 0) == BotStatus.DEFAULT.get()) {
+            if (userStatus.getOrDefault(update.getCallbackQuery().getMessage().getChatId(), UserStatus.DEFAULT) == UserStatus.DEFAULT) {
                 if (update.getCallbackQuery().getData().contains("OneMore")) {
                     try {
                         execute(defaultAnswerCallbackQuery(update.getCallbackQuery()));
@@ -205,7 +204,7 @@ public class Bot extends TelegramLongPollingBot {
                     } catch (TelegramApiException e) {
                         e.printStackTrace();
                     }
-                    userStatus.put(update.getCallbackQuery().getMessage().getChatId(), BotStatus.GET_SKU.get());
+                    userStatus.put(update.getCallbackQuery().getMessage().getChatId(), UserStatus.GET_SKU);
                 }
             }
         }

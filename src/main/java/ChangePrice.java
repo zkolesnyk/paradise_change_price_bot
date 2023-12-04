@@ -48,7 +48,7 @@ public class ChangePrice {
         productList.add(new Product(18, "Китиця тассел", "Китиця", 40, false));
         productList.add(new Product(19, "Спіраль тассел", "Спіраль", 100, false));
         productList.add(new Product(24, "Фольгована кулька сфера", "Сфера", 500, true));
-        productList.add(new Product(35, "Гендерна кулька з кульками та конфетті всередині", "Гендерна", 950+100, true));
+        productList.add(new Product(35, "Гендерна кулька з кульками та конфетті всередині", "Гендерна", 1200, true));
         productList.add(new Product(36, "Повітряна композиція з місяцем та пупсом", "Повітряна комп", 600, true));
         productList.add(new Product(37, "Латексний кольоровий гігант", "Гігант без напису", 1000, true));
         productList.add(new Product(38, "Латексний кольоровий гігант у вигляді тваринки", "Гігант тваринка", 1200+100, true));
