@@ -20,18 +20,18 @@ public class ChangePrice {
         productList.add(new Product(5, "Латексна гелієва кулька з конфетті", "Конфетті 12д", 90, true));
         productList.add(new Product(12, "Латексна гелієва кулька з індивідуальним написом", "12д з індивід", 65 + 40 + 10, true));
         productList.add(new Product(13, "Прозорий гігант з конфетті", "Гігант з конфетті без нап", 1100, true));
-        productList.add(new Product(14, "Прозорий гігант з конфетті та написом", "Гігант з конфетті та нап", 1100 + 150, true));
-        productList.add(new Product(15, "Латексний кольоровий гігант з написом", "Гігант з написом", 1000 + 150, true));
-        productList.add(new Product(16, "Дзеркальний гігант з написом", "Дзеркальний з написом", 1100 + 150, true));
-        productList.add(new Product(31, "Bubble з пір’ям або кульками без напису", "Bubble без напису", 650+100, true));
-        productList.add(new Product(32, "Bubble з пір’ям або кульками з написом", "Bubble з написом", 750+100, true));
+        productList.add(new Product(14, "Прозорий гігант з конфетті та написом", "Гігант з конфетті та нап", 1250, true));
+        productList.add(new Product(15, "Латексний кольоровий гігант з написом", "Гігант з написом", 1150, true));
+        productList.add(new Product(16, "Дзеркальний гігант з написом", "Дзеркальний з написом", 1250, true));
+        productList.add(new Product(31, "Bubble з пір’ям або кульками без напису", "Bubble без напису", 750, true));
+        productList.add(new Product(32, "Bubble з пір’ям або кульками з написом", "Bubble з написом", 850, true));
         productList.add(new Product(6, "Фольгована гелієва кулька 18д без малюнка", "18д без мал", 150, true));
         productList.add(new Product(7, "Фольгована гелієва кулька 18д з малюнком", "18д з мал", 240, true));
-        productList.add(new Product(8, "Фольгована гелієва кулька 18д з індивідуальним написом", "18д з індивід", 220, true));
-        productList.add(new Product(33, "Фольговане серце/зірка гігант без напису", "Фольга гігант без напису", 550+100, true));
-        productList.add(new Product(17, "Фольговане серце/зірка гігант з написом", "Фольга гігант з написом", 700+100, true));
-        productList.add(new Product(9, "Коробка-сюрприз з індивідуальним написом", "Коробка з написом", 650+50, false));
-        productList.add(new Product(30, "Коробка-сюрприз з кольоровою наліпкою", "Коробка з наклейкою", 700+50, false));
+        productList.add(new Product(8, "Фольгована гелієва кулька 18д з індивідуальним написом", "18д з індивід", 240, true));
+        productList.add(new Product(33, "Фольговане серце/зірка гігант без напису", "Фольга гігант без напису", 650, true));
+        productList.add(new Product(17, "Фольговане серце/зірка гігант з написом", "Фольга гігант з написом", 800, true));
+        productList.add(new Product(9, "Коробка-сюрприз з індивідуальним написом", "Коробка з написом", 700, false));
+        productList.add(new Product(30, "Коробка-сюрприз з кольоровою наліпкою", "Коробка з наклейкою", 750, false));
         productList.add(new Product(20, "Фольгована цифра 96 см", "Цифра 96 см", 500, true));
         productList.add(new Product(21, "Фольгована цифра 70 см", "Цифра 70 см", 400, true));
         productList.add(new Product(34, "Цифра з повітрям на підставці", "Цифра з повітр", 550, true));
@@ -58,12 +58,13 @@ public class ChangePrice {
         productList.add(new Product(42, "Кульки з повітрям на підлогу", "На підлогу", 10, false));
         productList.add(new Product(43, "Індивідуальна гірлянда на кульку", "Гірлянда на кульку", 50, false));
         productList.add(new Product(44, "Індивідуальний дощик на кульку", "Дощик на кульку", 40, false));
-        productList.add(new Product(45, "Дзеркальний гігант", "Дзеркальний без напису", 850+100, true));
+        productList.add(new Product(45, "Дзеркальний гігант", "Дзеркальний без напису", 1100, true));
         productList.add(new Product(46, "Зірки з повітрям на підлогу", "Зірки на підлогу", 70, false));
         productList.add(new Product(47, "Корзина з повітряною кулею з кульок", "Шар с корзиной", 4500, false));
         productList.add(new Product(48, "Корзина з повітряною кулею з кульок (хром)", "Шар с корзиной (хром)", 5500, false));
         productList.add(new Product(49, "Фотозона — гірлянда кульок на банері з написом", "Фотозона дабл белый банер", 9500, false));
         productList.add(new Product(50, "Фольгована міні-ходяча фігура", "Мини ходячка", 750, false));
+        productList.add(new Product(52, "-", "-", 0, true));
 
         for (Product product : productList) {
             System.out.println(product.getFullName() + " — " + product.getPrice() + " грн.");
