@@ -51,7 +51,7 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(29, "Велика фольгована фігура", "Фігура за 520", 520, true));
         productList.add(new Product(51, "Велика фольгована фігура", "Фігура за 550", 550, true));
         productList.add(new Product(10, "Вантаж декоративний", "Груз", 20, false));
-        productList.add(new Product(11, "Транспортувальний пакет", "Пакет", 40, false));
+        productList.add(new Product(11, "Транспортувальний перфорований пакет", "Пакет", 40, false));
         productList.add(new Product(18, "Китиця тассел", "Китиця", 40, false));
         productList.add(new Product(19, "Спіраль тассел", "Спіраль", 100, false));
         productList.add(new Product(24, "Фольгована кулька сфера", "Сфера", 500, true));
