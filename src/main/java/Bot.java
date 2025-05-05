@@ -74,6 +74,7 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(52, "Індивідуальний бантик на кулю", "Бантик", 15, false));
         productList.add(new Product(53, "-", "-", 0, false));
         productList.add(new Product(54, "Латексна гелієва кулька 18д", "Латекс 18д", 600, true));
+        productList.add(new Product(55, "Дзеркальна гелієва кулька 12д", "Дзеркальний латекс 12д", 120, true));
     }
 
 //    static {
