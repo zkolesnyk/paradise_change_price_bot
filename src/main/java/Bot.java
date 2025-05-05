@@ -72,9 +72,8 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(49, "Фотозона — гірлянда кульок на банері з написом", "Фотозона дабл белый банер", 9500, false));
         productList.add(new Product(50, "Фольгована міні-ходяча фігура", "Мини ходячка", 750, false));
         productList.add(new Product(52, "Індивідуальний бантик на кулю", "Бантик", 15, false));
-        productList.add(new Product(53, "-", "-", 0, false));
+        productList.add(new Product(53, "Дзеркальна гелієва кулька 12д", "Дзеркальний латекс 12д", 120, true));
         productList.add(new Product(54, "Латексна гелієва кулька 18д", "Латекс 18д", 600, true));
-        productList.add(new Product(55, "Дзеркальна гелієва кулька 12д", "Дзеркальний латекс 12д", 120, true));
     }
 
 //    static {
