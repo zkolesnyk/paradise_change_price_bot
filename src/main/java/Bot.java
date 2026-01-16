@@ -39,7 +39,7 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(17, "Фольговане серце/зірка гігант з написом", "Фольга гігант з написом", 800 + 150, true));
         productList.add(new Product(9, "Коробка-сюрприз з індивідуальним написом", "Коробка з написом", 1050 + 150, false));
         productList.add(new Product(30, "Коробка-сюрприз з кольоровою наліпкою", "Коробка з наклейкою", 1200 + 150, false));
-        productList.add(new Product(20, "Фольгована цифра 96 см", "Цифра 96 см", 500, true));
+        productList.add(new Product(20, "Фольгована цифра 102 см", "Цифра 102 см", 500, true));
         productList.add(new Product(21, "Фольгована цифра 70 см", "Цифра 70 см", 400, true));
         productList.add(new Product(34, "Цифра з повітрям на підставці", "Цифра з повітр", 550, true));
         productList.add(new Product(22, "Ходяча фольгована фігура Міккі/Мінні", "Ходячка Міккі/Мінні", 1800, true));
@@ -64,7 +64,7 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(41, "Коробка з трояндами та ведмідь", "Коробка+медведь", 2600+2000, false));
         productList.add(new Product(42, "Кульки з повітрям на підлогу", "На підлогу", 10, false));
         productList.add(new Product(43, "Індивідуальна гірлянда на кульку", "Гірлянда на кульку", 50, false));
-        productList.add(new Product(44, "Індивідуальний дощик на кульку", "Дощик на кульку", 40, false));
+        productList.add(new Product(44, "Індивідуальний дощик на кульку", "Дощик на кульку", 20, false));
         productList.add(new Product(45, "Дзеркальний гігант", "Дзеркальний без напису", 1100, true));
         productList.add(new Product(46, "Зірки з повітрям на підлогу", "Зірки на підлогу", 70, false));
         productList.add(new Product(47, "Корзина з повітряною кулею з кульок", "Шар с корзиной", 5500, false));
@@ -74,6 +74,8 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(52, "Індивідуальний бантик на кулю", "Бантик", 15, false));
         productList.add(new Product(53, "Дзеркальна гелієва кулька 12д", "Дзеркальний латекс 12д", 120, true));
         productList.add(new Product(54, "Латексна гелієва кулька 18д", "Латекс 18д", 600, true));
+        productList.add(new Product(55, "Додатковий декор на цифру", "Дод. декор на цифру", 100, false));
+        productList.add(new Product(56, "Атласна стрічка під кульку", "Алтасна стрічка", 10, true));
     }
 
 //    static {
