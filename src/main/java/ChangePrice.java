@@ -138,13 +138,21 @@ public class ChangePrice {
                     if (crmSheet.getRow(j) != null) {
                         XSSFRow rowCRM = crmSheet.getRow(j);
                         XSSFCell productCellSKU = rowCRM.getCell(11);
+                        if (productCellSKU == null) continue;
                         System.out.println("sku: " + productCellSKU.toString());
                         int productSKU = Integer.parseInt(productCellSKU.toString().replace(".0", ""));
                         if (dataSKU == productSKU) {
 
                             XSSFCell oldPrice = rowCRM.getCell(14);
+                            if (oldPrice == null) {
+                                oldPrice = rowCRM.createCell(14);
+                            }
                             oldPrice.setCellValue(sum);
+
                             XSSFCell oldDescription = rowCRM.getCell(2);
+                            if (oldDescription == null) {
+                                oldDescription = rowCRM.createCell(2);
+                            }
                             oldDescription.setCellValue(description.toString());
                         }
                     } else break;
