@@ -73,9 +73,9 @@ public class Bot extends TelegramLongPollingBot {
         productList.add(new Product(50, "Фольгована міні-ходяча фігура", "Мини ходячка", 750, false));
         productList.add(new Product(52, "Індивідуальний бантик на кулю", "Бантик", 15, false));
         productList.add(new Product(53, "Дзеркальна гелієва кулька 12д", "Дзеркальний латекс 12д", 120, true));
-        productList.add(new Product(54, "Латексна гелієва кулька 18д", "Латекс 18д", 600, true));
+        productList.add(new Product(54, "Латексна гелієва кулька 18д", "Латекс 18д", 350, true));
         productList.add(new Product(55, "Додатковий декор на цифру", "Дод. декор на цифру", 100, false));
-        productList.add(new Product(56, "Атласна стрічка під кульку", "Алтасна стрічка", 10, true));
+        productList.add(new Product(56, "Атласна стрічка під кульку", "Алтасна стрічка", 10, false));
     }
 
 //    static {
