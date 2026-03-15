@@ -86,7 +86,7 @@ public class Bot extends TelegramLongPollingBot {
 //    }
     private static int tempProductId;
     private static int tempProductQuantity;
-    private static int tempProductSKU;
+    private static String tempProductSKU;
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -117,7 +117,7 @@ public class Bot extends TelegramLongPollingBot {
                     }
                 }
             } else if (userStatus.get(update.getMessage().getChatId()) == UserStatus.GET_SKU) {
-                tempProductSKU = Integer.parseInt(message.getText());
+                tempProductSKU = message.getText();
                 userStatus.put(message.getChatId(), UserStatus.GET_NAME);
                 try {
                     execute(sendProducts(message));

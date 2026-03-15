@@ -10,7 +10,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class UpdateExcel {
 
-    public static void createRow(int sku, String description, int price, String array) throws IOException {
+    public static void createRow(String sku, String description, int price, String array) throws IOException {
 
         File file = new File("/Users/yevheniikolesnyk/Мой диск/paradise/descriptions.xlsx");
         // Read XSL file
@@ -22,7 +22,7 @@ public class UpdateExcel {
         // Get first sheet from the workbook
         XSSFSheet sheet = workbook.getSheetAt(0);
         int emptyRow = 0;
-        for (int i = 0; i < 2000; i++) {
+        for (int i = 0; i < 3000; i++) {
             if (sheet.getRow(i) != null) {
             } else {
                 emptyRow = i;

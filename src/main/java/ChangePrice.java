@@ -37,13 +37,13 @@ public class ChangePrice {
 //        XSSFSheet specialsSheet = productsWorkbook.getSheetAt(2);
         XSSFSheet crmSheet = CRMWorkbook.getSheetAt(0);
 
-        for (int i = 0; i < 2000; i++) {
+        for (int i = 0; i < 3000; i++) {
             if (dataSheet.getRow(i) != null) {
                 XSSFRow row = dataSheet.getRow(i);
                 XSSFCell dataCellSKU = row.getCell(0);
                 XSSFCell dataCellHashMap = row.getCell(3);
 
-                int dataSKU = Integer.parseInt(dataCellSKU.toString().replace(".0", ""));
+                String dataSKU = dataCellSKU.toString().replace(".0", "");
 
                 Map<String, String> productQuantity = Splitter.on(", ")
                         .withKeyValueSeparator("=")
@@ -77,8 +77,8 @@ public class ChangePrice {
                     description.append("\n<li class=\"description_alert\">Напис на коробці можна змінити за вашим бажанням.</li>");
                 }
                 if (productQuantity.keySet().size() > 2 ) {
-                    if (sum < 2000) {
-                        description.append("\n<li class=\"description_delivery\">Для безкоштовної доставки цього набору потрібно додати товарів ще на ").append(2000 - sum).append(" грн.</li>");
+                    if (sum < 3000) {
+                        description.append("\n<li class=\"description_delivery\">Для безкоштовної доставки цього набору потрібно додати товарів ще на ").append(3000 - sum).append(" грн.</li>");
                     } else {
                         description.append("\n<li class=\"description_delivery\">Можлива безкоштовна доставка цього набору. Додайте набір у кошик, щоб подивитись деталі.</li>");
                     }
@@ -105,12 +105,12 @@ public class ChangePrice {
                 priceWithoutDiscount.setCellValue(priceWithoutDiscountAmount);
 
                 // change price without discount and description
-                for (int j = 1; j < 2000; j++) {
+                for (int j = 1; j < 3000; j++) {
                     if (productsSheet.getRow(j) != null) {
                         XSSFRow productRow = productsSheet.getRow(j);
                         XSSFCell productCellSKU = productRow.getCell(0);
-                        int productSKU = Integer.parseInt(productCellSKU.toString().replace(".0", ""));
-                        if (dataSKU == productSKU) {
+                        String productSKU = productCellSKU.toString().replace(".0", "");
+                        if (dataSKU.equals(productSKU)) {
 
                             XSSFCell price = productRow.getCell(16);
                             price.setCellValue(String.valueOf(sum));
@@ -125,8 +125,8 @@ public class ChangePrice {
 //                    if (specialsSheet.getRow(j) != null) {
 //                        XSSFRow rowOld = specialsSheet.getRow(j);
 //                        XSSFCell productCellSKU = rowOld.getCell(0);
-//                        int productSKU = Integer.parseInt(productCellSKU.toString().replace(".0", ""));
-//                        if (dataSKU == productSKU) {
+//                        String productSKU = productCellSKU.toString().replace(".0", "");
+//                        if (dataSKU.equals(productSKU)) {
 //
 //                            XSSFCell oldPrice = rowOld.getCell(3);
 //                            oldPrice.setCellValue(sum);
@@ -134,14 +134,14 @@ public class ChangePrice {
 //                    } else break;
 //                }
 
-                for (int j = 1; j < 2000; j++) {
+                for (int j = 1; j < 3000; j++) {
                     if (crmSheet.getRow(j) != null) {
                         XSSFRow rowCRM = crmSheet.getRow(j);
                         XSSFCell productCellSKU = rowCRM.getCell(11);
                         if (productCellSKU == null) continue;
                         System.out.println("sku: " + productCellSKU.toString());
-                        int productSKU = Integer.parseInt(productCellSKU.toString().replace(".0", ""));
-                        if (dataSKU == productSKU) {
+                        String productSKU = productCellSKU.toString().replace(".0", "");
+                        if (dataSKU.equals(productSKU)) {
 
                             XSSFCell oldPrice = rowCRM.getCell(14);
                             if (oldPrice == null) {
