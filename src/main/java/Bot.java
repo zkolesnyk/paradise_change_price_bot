@@ -12,8 +12,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Bot extends TelegramLongPollingBot {
+
+    private static final Logger log = Logger.getLogger(Bot.class.getName());
 
     public static HashMap<Long, UserStatus> userStatus = new HashMap<>();
     public static HashMap<Integer, Integer> productQuantity = new HashMap<>();
@@ -101,14 +105,14 @@ public class Bot extends TelegramLongPollingBot {
                             try {
                                 execute(startMessage(update.getMessage()));
                             } catch (TelegramApiException e) {
-                                e.printStackTrace();
+                                log.log(Level.SEVERE, "Помилка обробки оновлення Telegram", e);
                             }
                             break;
                         case "/create_bundle":
                             try {
                                 execute(sendSomething(message, "Введіть артикул набору:"));
                             } catch (TelegramApiException e) {
-                                e.printStackTrace();
+                                log.log(Level.SEVERE, "Помилка обробки оновлення Telegram", e);
                             }
                             userStatus.put(message.getChatId(), UserStatus.GET_SKU);
                             break;
@@ -122,10 +126,19 @@ public class Bot extends TelegramLongPollingBot {
                 try {
                     execute(sendProducts(message));
                 } catch (TelegramApiException e) {
-                    e.printStackTrace();
+                    log.log(Level.SEVERE, "Помилка обробки оновлення Telegram", e);
                 }
             } else if (userStatus.get(update.getMessage().getChatId()) == UserStatus.GET_QUANTITY) {
-                tempProductQuantity = Integer.parseInt(message.getText());
+                try {
+                    tempProductQuantity = Integer.parseInt(message.getText().trim());
+                } catch (NumberFormatException e) {
+                    try {
+                        execute(sendSomething(message, "Введіть кількість числом (наприклад, 3):"));
+                    } catch (TelegramApiException ex) {
+                        log.log(Level.SEVERE, "Помилка обробки оновлення Telegram", ex);
+                    }
+                    return;
+                }
 
                 if (tempProductQuantity != 0) {
                     productQuantity.put(tempProductId, productQuantity.getOrDefault(tempProductId, 0) + tempProductQuantity);
@@ -136,7 +149,7 @@ public class Bot extends TelegramLongPollingBot {
                     execute(sendSomething(message, getProductById(tempProductId).getFullName() + " — " + tempProductQuantity + " шт."));
                     execute(sendProducts(message));
                 } catch (TelegramApiException e) {
-                    e.printStackTrace();
+                    log.log(Level.SEVERE, "Помилка обробки оновлення Telegram", e);
                 }
 
             }
@@ -151,7 +164,7 @@ public class Bot extends TelegramLongPollingBot {
                         execute(defaultAnswerCallbackQuery(update.getCallbackQuery()));
                         execute(sendSomething(update.getCallbackQuery().getMessage(), "Введіть кількість:"));
                     } catch (TelegramApiException e) {
-                        e.printStackTrace();
+                        log.log(Level.SEVERE, "Помилка обробки оновлення Telegram", e);
                     }
                 }
 
@@ -159,7 +172,7 @@ public class Bot extends TelegramLongPollingBot {
                     try {
                         execute(defaultAnswerCallbackQuery(update.getCallbackQuery()));
                     } catch (TelegramApiException e) {
-                        e.printStackTrace();
+                        log.log(Level.SEVERE, "Помилка обробки оновлення Telegram", e);
                     }
                     userStatus.put(update.getCallbackQuery().getMessage().getChatId(), UserStatus.CREATE);
                     System.out.println(productQuantity.toString());
@@ -181,14 +194,14 @@ public class Bot extends TelegramLongPollingBot {
                     try {
                         UpdateExcel.createRow(tempProductSKU, description.toString(), sum, productQuantity.toString());
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        log.log(Level.SEVERE, "Помилка обробки оновлення Telegram", e);
                     }
 
                     try {
                         execute(sendSomething(update.getCallbackQuery().getMessage(), "Набір №" + tempProductSKU + "\n" + description.toString() + "\n" + "Вартість набору: " + sum + " грн."));
                         execute(oneMore(update.getCallbackQuery().getMessage()));
                     } catch (TelegramApiException e) {
-                        e.printStackTrace();
+                        log.log(Level.SEVERE, "Помилка обробки оновлення Telegram", e);
                     }
                     userStatus.put(update.getCallbackQuery().getMessage().getChatId(), UserStatus.DEFAULT);
                     productQuantity.clear();
@@ -200,7 +213,7 @@ public class Bot extends TelegramLongPollingBot {
                         execute(defaultAnswerCallbackQuery(update.getCallbackQuery()));
                         execute(sendSomething(update.getCallbackQuery().getMessage(), "Скасовано."));
                     } catch (TelegramApiException e) {
-                        e.printStackTrace();
+                        log.log(Level.SEVERE, "Помилка обробки оновлення Telegram", e);
                     }
                     userStatus.put(update.getCallbackQuery().getMessage().getChatId(), UserStatus.DEFAULT);
                     description = null;
@@ -213,7 +226,7 @@ public class Bot extends TelegramLongPollingBot {
                         execute(defaultAnswerCallbackQuery(update.getCallbackQuery()));
                         execute(sendSomething(update.getCallbackQuery().getMessage(), "Введіть артикул набору:"));
                     } catch (TelegramApiException e) {
-                        e.printStackTrace();
+                        log.log(Level.SEVERE, "Помилка обробки оновлення Telegram", e);
                     }
                     userStatus.put(update.getCallbackQuery().getMessage().getChatId(), UserStatus.GET_SKU);
                 }
@@ -293,7 +306,7 @@ public class Bot extends TelegramLongPollingBot {
             firstButton.setText(first.getShortName() + " — " + productQuantity.getOrDefault(first.getId(), 0));
             firstButton.setCallbackData("AddProduct+" + first.getId());
             buttonsRow.add(firstButton);
-            if (productList.listIterator(i).hasNext()) {
+            if (i + 1 < productList.size()) {
                 Product second = productList.get(i + 1);
                 InlineKeyboardButton secondButton = new InlineKeyboardButton();
                 secondButton.setText(second.getShortName() + " — " + productQuantity.getOrDefault(second.getId(), 0));
