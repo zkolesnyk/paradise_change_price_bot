@@ -157,7 +157,7 @@ public class ChangePrice {
                     } else {
                         description.append("\n<li class=\"description_delivery\">Можлива безкоштовна доставка цього набору. Додайте набір у кошик, щоб подивитись деталі.</li>");
                     }
-                    description.append("\n<li class=\"description_flowers\">Додайте квіти до замовлення: <a href=\"/floristika-2/\">розділ «Флористика»</a></li>");
+//                    description.append("\n<li class=\"description_flowers\">Додайте квіти до замовлення: <a href=\"/floristika-2/\">розділ «Флористика»</a></li>");
                 }
                 description.append("</ul>");
 
